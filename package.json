@@ -1,6 +1,6 @@
 {
-  "name": "vikcraft_status",
-  "version": "1.0.0",
+  "name": "mcstatus",
+  "version": "2.0.0",
   "description": "Discord bot for our Minecraft Server",
   "main": "main.js",
   "scripts": {

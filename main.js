@@ -7,8 +7,6 @@ const rule = require("./config.json").rule;
 const schedule = require('node-schedule');
 const client = new Discord.Client();
 
-
-
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     client.user.setPresence({ activity: { name: 'Starting', type: "PLAYING" }, status: 'online' })
@@ -16,16 +14,16 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     switch (msg.content) {
-        case "?mc-status":
+        case "!mc-status":
             sendStatus(msg);
             break;
-        case "?mc-players":
+        case "!mc-players":
             sendPlayers(msg);
             break;
-        case "?update-status":
+        case "!mc-update":
             console.log("Manual presence update");
             updatePrescence();
-        case "?help":
+        case "!mc-help":
             sendHelp(msg);
     }
 });
@@ -44,11 +42,11 @@ var updatePrescence = () => {
 
 var sendStatus = function (msg) {
     ping(ip, port).then(response => {
-        msg.react("🤖")
+        msg.react("🐑")
         msg.channel.send(`${response.descriptionText} szerver állapota 🌍:\n🟢 Online\n👨‍💻 ${response.onlinePlayers}/${response.maxPlayers} játékos játszik éppen\n📶 ${response.host}:${response.port}\nℹ️ Verzió: ${response.version}`)
     }).catch((reason) => {
         console.log(reason);
-        msg.react("🤖");
+        msg.react("🐑");
         console.log("Server unreachable")
         msg.channel.send("🔴 A Szerver Offline")
     })
@@ -56,7 +54,7 @@ var sendStatus = function (msg) {
 
 var sendPlayers = function (msg) {
     ping(ip, port).then(response => {
-        msg.react("🤖")
+        msg.react("🐑")
         var players = new Array();
         if (response.samplePlayers) {
             response.samplePlayers.forEach(player => {
@@ -78,15 +76,15 @@ var sendPlayers = function (msg) {
         msg.channel.send(responseText);
     }).catch((reason) => {
         console.log(reason);
-        msg.react("🤖");
+        msg.react("🐑");
         console.log("Server unreachable")
         msg.channel.send("🔴 A Szerver Offline")
     })
 }
 
 var sendHelp = function (msg) {
-    msg.react("🤖")
-    msg.channel.send("Itt egy kis segítség:\n?mc-status - Manuális státuszlekérés\n?mc-players - Játékoslista lekérése\n?update-status - Státusz frissítése a bot leírásában (30mp-enként frissül)")
+    msg.react("🐑")
+    msg.channel.send("Itt egy kis segítség:\n!mc-status - Manuális státuszlekérés\n!mc-players - Játékoslista lekérése\n!update-status - Státusz frissítése a bot leírásában (30mp-enként frissül)")
 }
 
 var loop = new schedule.scheduleJob(rule, updatePrescence);

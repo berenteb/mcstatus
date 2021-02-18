@@ -1,6 +1,6 @@
 # MC Server Status Discord Bot
 Discord bot for querying a Minecraft Server.
-**You need to enable query in the server.properties file!**
+**You need to enable query, RCON and set the RCON password in the server.properties file!**
 # Config required
 ```
 {
